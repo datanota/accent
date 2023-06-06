@@ -1,0 +1,274 @@
+
+# :kivy 2.0.0
+
+<AccentContent>:
+
+    ScreenManager:
+        id: screen_manager
+        canvas:
+            Color:
+                rgb: 222/255, 222/255, 222/255
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+##########################################################
+########################################################## home screen
+##########################################################
+
+        Screen:
+            name: 'home'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '0dp'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    padding: '15dp'
+                    MDRoundFlatIconButton:
+                        name: 'data_home_b'
+                        icon: 'copyright'
+                        text: '2023 Datanota'
+                        font_size: '14sp'
+                        pos_hint: {'right': 1, 'top': 1}
+                        on_release:
+                            app.accent_ss()
+                GridLayout:
+                    rows: 2
+                    Image:
+                        source: '../assets/accent_applogo.png'
+                        allow_stretch: True
+                    GridLayout:
+                        cols: 2
+                        size_hint: 1, 0.15
+                        padding: 0, 5, 0, 5
+                        MDFillRoundFlatIconButton:
+                            icon: 'play'
+                            text: 'demo'
+                            line_color: 'gray'
+                            icon_color: 125/255, 125/255, 125/255
+                            text_color: 125/255, 125/255, 125/255
+                            font_size: '30sp'
+                            font_name: 'Gulim'
+                            md_bg_color: 233/255, 233/255, 235/255
+                            size_hint: 1, None
+                            on_release:
+                                app.accent_demo()
+                        MDFillRoundFlatIconButton:
+                            icon: 'chevron-right-circle-outline'
+                            text: 'start  '
+                            line_color: 'gray'
+                            icon_color: 125/255, 125/255, 125/255
+                            text_color: 125/255, 125/255, 125/255
+                            font_size: '30sp'
+                            font_name: 'Gulim'
+                            md_bg_color: 233/255, 233/255, 235/255
+                            size_hint: 1, None
+                            on_release:
+                                app.accent_palette('s1')
+
+##########################################################
+########################################################## palette screen
+##########################################################
+
+        Screen:
+            name: 's1'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '1dp'
+                MDTopAppBar:
+                    id: top_app_bar
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    left_action_items:
+                        [
+                        ["home", lambda x: app.callback_top_nav('home'), 'home']
+                        ]
+                    right_action_items:
+                        [["copyright", lambda x: app.accent_ss()]]
+                BoxLayout:
+                    orientation: 'vertical'
+                    GridLayout:
+                        rows: 2
+                        spacing: '5dp'
+                        GridLayout:
+                            cols: 3
+                            size_hint: 1, 0.15
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 0.5, 1
+                                MDLabel:
+                                    text: 'choose colors:'
+                                    font_size: '25dp'
+                                    color: '808080'
+                                    font_name: 'Gulim'
+                                    bold: True
+                                    halign: 'center'
+                                    valign: 'top'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                id: chosen_colors
+                                padding: [0, 10, 0, 0]
+                            BoxLayout:
+                                orientation: 'vertical'
+                                size_hint: 0.5, 1
+                                spacing: '5dp'
+                                padding: [20, 10, 20, 0]
+                                Button:
+                                    text: 'next'
+                                    font_name: 'Gulim'
+                                    font_size: '20dp'
+                                    on_release:
+                                        screen_manager.current = 's2'
+                                        app.mood_board_chosen_colors()
+                                Button:
+                                    text: 'clear'
+                                    font_name: 'Gulim'
+                                    font_size: '20dp'
+                                    on_release:
+                                        app.clear_chosen_colors()
+                        StackLayout:
+                            id: prom_palette
+
+##########################################################
+########################################################## color-board screen
+##########################################################
+
+        Screen:
+            name: 's2'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '1dp'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    left_action_items:
+                        [
+                        ["home", lambda x: app.callback_top_nav('home'), 'home'],
+                        ["palette", lambda x: app.accent_palette('s1'), "choose color"]
+                        ]
+                    right_action_items:
+                        [["copyright", lambda x: app.accent_ss()]]
+                BoxLayout:
+                    orientation: 'vertical'
+                    GridLayout:
+                        cols: 2
+                        size_hint: 1, 0.1
+                        padding: [0, 5, 0, 5]
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            id: board_chosen_colors
+                        BoxLayout:
+                            orientation: 'vertical'
+                            size_hint: 0.3, 1
+                            spacing: '5dp'
+                            padding: [10, 0, 10, 0]
+                            Button:
+                                text: 'color board'
+                                font_name: 'Gulim'
+                                font_size: '20dp'
+                                on_release:
+                                    app.create_color_board()
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        id: section_color_boards
+                        size_hint: 1, 0.8
+                        StackLayout:
+                            id: b_color_board
+                        StackLayout:
+                            id: h_color_board
+                        StackLayout:
+                            id: a_color_board
+                    GridLayout:
+                        cols: 3
+                        size_hint: 1, 0.1
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            MDTextFieldRect:
+                                id: b_hex
+                                hint_text: 'color in hex'
+                            Button:
+                                text: 'add'
+                                size_hint: 0.3, 1
+                                on_release:
+                                    app.section_chosen(0)
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            MDTextFieldRect:
+                                id: h_hex
+                                hint_text: 'color in hex'
+                            Button:
+                                text: 'add'
+                                size_hint: 0.3, 1
+                                on_release:
+                                    app.section_chosen(1)
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            MDTextFieldRect:
+                                id: a_hex
+                                hint_text: 'color in hex'
+                            Button:
+                                text: 'add'
+                                size_hint: 0.3, 1
+                                on_release:
+                                    app.section_chosen(2)
+                    GridLayout:
+                        cols: 3
+                        id: section_colos_btn
+                        size_hint: 1, 0.2
+                        BoxLayout:
+                            orientation: 'vertical'
+                            id: b_colors
+                        BoxLayout:
+                            orientation: 'vertical'
+                            id: h_colors
+                        BoxLayout:
+                            orientation: 'vertical'
+                            id: a_colors
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint: 1, 0.2
+                        Button:
+                            text: 'create board'
+                            on_release:
+                                app.create_boards()
+
+##########################################################
+########################################################## mood-board screen
+##########################################################
+
+        Screen:
+            name: 'sb'
+            BoxLayout:
+                orientation: 'vertical'
+                spacing: '1dp'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    left_action_items:
+                        [
+                        ["home", lambda x: app.callback_top_nav('home'), 'home'],
+                        ["palette", lambda x: app.accent_palette('s1'), "choose color"],
+                        ["image-plus", lambda x: app.accent_mood_board_ss(), 'save board']
+                        ]
+                    right_action_items:
+                        [["refresh-circle", lambda x: app.create_boards()],
+                        ["copyright", lambda x: app.accent_ss()]]
+                BoxLayout:
+                    orientation: 'vertical'
+                    id: board_canvas
+                    GridLayout:
+                        rows: 3
+                        StackLayout:
+                            id: board_r1
+                        StackLayout:
+                            id: board_r2
+                        StackLayout:
+                            id: board_r3
+
+
+
