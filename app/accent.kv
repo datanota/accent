@@ -1,0 +1,118 @@
+
+# :kivy 2.0.0
+#:include seasons.kv
+#:include colors.kv
+#:include styles.kv
+#:include board.kv
+
+<AccentContent>:
+
+    ScreenManager:
+        id: screen_manager
+        canvas:
+            Color:
+                rgb: 222/255, 222/255, 222/255
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+##########################################################
+########################################################## home screen
+##########################################################
+
+        Screen:
+            name: 'home'
+            BoxLayout:
+                orientation: 'vertical'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    # title: 'window setting'
+                    elevation: 1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        padding: [10, 0, 0, 25]
+                        GridLayout:
+                            cols: 2
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                spacing: '10dp'
+                                MDRoundFlatIconButton:
+                                    id: default_setting_b
+                                    text: 'default setting'
+                                    font_size: '14sp'
+                                    on_release:
+                                        app.window_size_settings('default')
+                                MDRoundFlatIconButton:
+                                    id: large_setting_b
+                                    text: 'large setting   '
+                                    font_size: '14sp'
+                                    on_release:
+                                        app.window_size_settings('large')
+                        MDRoundFlatIconButton:
+                            name: 'data_home_b'
+                            icon: 'copyright'
+                            text: '2024 Datanota'
+                            font_size: '14sp'
+                            on_release:
+                                app.accent_ss()
+                BoxLayout:
+                    orientation: 'vertical'
+                    canvas:
+                        Color:
+                            rgb: 212/255, 213/255, 212/255
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    GridLayout:
+                        cols: 2
+                        padding: '30dp'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            padding: 0, 0, 0, 50
+                            Image:
+                                source: '../assets/accent_applogo.png'
+                                allow_stretch: True
+                        GridLayout:
+                            rows: 3
+                            spacing: '15dp'
+                            padding: [30, 200, 20, 100]
+                            MDFillRoundFlatIconButton:
+                                name: 'season_b'
+                                icon: 'palette'
+                                text: 'seasons '
+                                icon_color: 0, 0, 0
+                                text_color: 0, 0, 0
+                                font_size: '20sp'
+                                md_bg_color: 135/255, 255/255, 214/255
+                                size_hint_x: 0.7
+                                on_release:
+                                    app.accent_season_palette('season_screen')
+                            MDFillRoundFlatIconButton:
+                                name: 'custom_b'
+                                icon: 'cube'
+                                text: 'custom   '
+                                icon_color: 0, 0, 0
+                                text_color: 0, 0, 0
+                                font_size: '20sp'
+                                md_bg_color: 129/255, 248/255, 255/255
+                                size_hint_x: 0.7
+                                on_release:
+                                    screen_manager.current = 'styles_screen'
+                            MDFillRoundFlatIconButton:
+                                name: 'demo_home_b'
+                                icon: 'play-circle'
+                                text: 'demo      '
+                                icon_color: 0, 0, 0
+                                text_color: 0, 0, 0
+                                font_size: '20sp'
+                                md_bg_color: 255/255, 213/255, 165/255
+                                size_hint: 1, None
+                                on_release:
+                                    app.accent_demo()
+
+        Seasons:
+        Colors:
+        Styles:
+        Board:
+

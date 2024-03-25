@@ -1,0 +1,85 @@
+
+
+# :kivy 2.0.0
+
+##########################################################
+########################################################## Colors Screen
+##########################################################
+
+<Colors>:
+    name: 'colors_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '1dp'
+        MDTopAppBar:
+            id: top_app_bar
+            md_bg_color: app.theme_cls.primary_dark
+            specific_text_color: app.theme_cls.primary_light
+            elevation: 1
+            left_action_items:
+                [
+                ["home", lambda x: app.callback_top_nav('home'), 'home'],
+                ["palette", lambda x: app.callback_top_nav('season_screen'), 'seasons']
+                ]
+            right_action_items:
+                [["copyright", lambda x: app.accent_ss()]]
+        BoxLayout:
+            orientation: 'vertical'
+            id: test_id
+            size_hint: 1, 0.2
+            padding: [20, 0, 10, 0]
+            MDLabel:
+                text: 'click on colors to select'
+                font_size: '25dp'
+                color: '808080'
+                font_name: 'Gulim'
+                bold: True
+                halign: 'center'
+                valign: 'top'
+        GridLayout:
+            cols: 2
+            size_hint: 1, 0.3
+            padding: [20, 0, 20, 10]
+            BoxLayout:
+                orientation: 'horizontal'
+                spacing: '10dp'
+                Button:
+                    name: 'random_colors_b'
+                    icon: 'check-circle'
+                    text: 'generate colors'
+                    color: 90/255, 101/255, 108/255
+                    font_size: '20sp'
+                    size_hint: 0.1, None
+                    height: '50dp'
+                    background_normal: ''
+                    background_color: 135/255, 255/255, 214/255
+                    on_release:
+                        app.show_colors_screen_random_colors('colors_screen')
+                Button:
+                    name: 'styles_b'
+                    icon: 'check-circle'
+                    text: 'select style'
+                    color: 90/255, 101/255, 108/255
+                    font_size: '20sp'
+                    size_hint: 0.1, None
+                    height: '50dp'
+                    background_normal: ''
+                    background_color: 129/255, 248/255, 255/255
+                    on_release:
+                        app.colors_screen_show_styles('styles_screen')
+        BoxLayout:
+            orientation: 'vertical'
+            id: colors_initial_color
+            size_hint: 1, 0.2
+            padding: [0, 0, 0, 5]
+        BoxLayout:
+            orientation: 'horizontal'
+            id: colors_screen_random_colors
+            size_hint: 1, 0.6
+            padding: [0, 5, 0, 5]
+        BoxLayout:
+            orientation: 'horizontal'
+            id: final_colors
+            size_hint: 1, 1
+            padding: [0, 5, 0, 5]
+

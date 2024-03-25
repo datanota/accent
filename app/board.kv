@@ -1,0 +1,31 @@
+
+
+# :kivy 2.0.0
+
+##########################################################
+########################################################## Board Screen
+##########################################################
+
+<Board>:
+    name: 'board_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        MDTopAppBar:
+            id: top_app_bar
+            md_bg_color: app.theme_cls.primary_dark
+            specific_text_color: app.theme_cls.primary_light
+            elevation: 1
+            left_action_items:
+                [
+                ["home", lambda x: app.callback_top_nav('home'), 'home'],
+                ["shape-plus", lambda x: app.callback_top_nav('styles_screen'), 'styles']
+                ]
+            right_action_items:
+                [
+                ["replay", lambda x: app.create_board('board_screen')],
+                ["image", lambda x: app.accent_board_ss('board_screen')]
+                ]
+        BoxLayout:
+            orientation: 'vertical'
+            id: board_layout
+

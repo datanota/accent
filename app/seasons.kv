@@ -1,0 +1,61 @@
+
+
+# :kivy 2.0.0
+
+##########################################################
+########################################################## Seasons
+##########################################################
+
+<Seasons>:
+    name: 'season_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '1dp'
+        MDTopAppBar:
+            id: top_app_bar
+            md_bg_color: app.theme_cls.primary_dark
+            specific_text_color: app.theme_cls.primary_light
+            elevation: 1
+            left_action_items:
+                [
+                ["home", lambda x: app.callback_top_nav('home'), 'home']
+                ]
+            right_action_items:
+                [["copyright", lambda x: app.accent_ss()]]
+        BoxLayout:
+            orientation: 'vertical'
+            GridLayout:
+                rows: 2
+                spacing: '5dp'
+                GridLayout:
+                    cols: 3
+                    size_hint: 1, 0.15
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint: 0.5, 1
+                        MDLabel:
+                            text: 'choose color:'
+                            font_size: '25dp'
+                            color: '808080'
+                            font_name: 'Gulim'
+                            bold: True
+                            halign: 'center'
+                            valign: 'top'
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        id: chosen_colors
+                        padding: [0, 10, 0, 0]
+                    BoxLayout:
+                        orientation: 'vertical'
+                        size_hint: 0.5, 1
+                        spacing: '5dp'
+                        padding: [20, 10, 20, 0]
+                        Button:
+                            text: 'next'
+                            font_name: 'Gulim'
+                            font_size: '20dp'
+                            on_release:
+                                app.seasons_color_selected('colors_screen')
+                StackLayout:
+                    id: season_palette
+

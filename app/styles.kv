@@ -1,0 +1,156 @@
+
+
+# :kivy 2.0.0
+
+##########################################################
+########################################################## Season Styles Screen
+##########################################################
+
+<Styles>:
+    name: 'styles_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        MDTopAppBar:
+            id: top_app_bar
+            md_bg_color: app.theme_cls.primary_dark
+            specific_text_color: app.theme_cls.primary_light
+            elevation: 1
+            left_action_items:
+                [
+                ["home", lambda x: app.callback_top_nav('home'), 'home'],
+                ["palette", lambda x: app.callback_top_nav('season_screen'), 'seasons']
+                ]
+            right_action_items:
+                [["copyright", lambda x: app.accent_ss()]]
+        BoxLayout:
+            orientation: 'vertical'
+            TabbedPanel:
+                tab_width: (self.parent.width - 10)/5
+                do_default_tab: False
+                tab_pos: 'bottom_mid'
+                background_image: ''
+                background_color: 222/255, 222/255, 222/255
+                TabbedPanelItem:
+                    id: cb
+                    text: 'styles'
+                    background_down: '../assets/accent_styles_tab_down.png'
+                    GridLayout:
+                        rows: 2
+
+########################################################## styles tab layout
+
+                        GridLayout:
+                            cols: 2
+                            BoxLayout:
+                                orientation: 'vertical'
+                                spacing: '5dp'
+                                padding: [0, 10, 0, 10]
+                                MDTextFieldRect:
+                                    id: board_given_name
+                                    multiline: False
+                                    cursor_color: 196/255, 204/255, 217/255
+                                    hint_text: 'board name (name your mood-board - default random)'
+                                    hint_text_color: 149/255, 158/255, 167/255
+                                    on_text: self.foreground_color = 196/255, 204/255, 217/255
+                                    size_hint: 1, None
+                                    height: '50dp'
+                                    color: 196/255, 204/255, 217/255
+                                    font_size: '20sp'
+                                    background_normal: ''
+                                    background_color: 90/255, 101/255, 108/255
+                                MDTextFieldRect:
+                                    id: board_given_style
+                                    multiline: False
+                                    cursor_color: 196/255, 204/255, 217/255
+                                    hint_text: 'choose style (e.g s1 or s2)'
+                                    hint_text_color: 149/255, 158/255, 167/255
+                                    on_text: self.foreground_color = 196/255, 204/255, 217/255
+                                    size_hint: 1, None
+                                    height: '50dp'
+                                    color: 196/255, 204/255, 217/255
+                                    font_size: '20sp'
+                                    background_normal: ''
+                                    background_color: 90/255, 101/255, 108/255
+                                MDTextFieldRect:
+                                    id: board_given_border_width
+                                    multiline: False
+                                    cursor_color: 196/255, 204/255, 217/255
+                                    hint_text: 'border width (e.g 0, 10, 20)'
+                                    hint_text_color: 149/255, 158/255, 167/255
+                                    on_text: self.foreground_color = 196/255, 204/255, 217/255
+                                    size_hint: 1, None
+                                    height: '50dp'
+                                    color: 196/255, 204/255, 217/255
+                                    font_size: '20sp'
+                                    background_normal: ''
+                                    background_color: 90/255, 101/255, 108/255
+                                MDTextFieldRect:
+                                    id: board_added_colors
+                                    multiline: False
+                                    cursor_color: 196/255, 204/255, 217/255
+                                    hint_text: 'add colors in hex (separate by comma)'
+                                    hint_text_color: 149/255, 158/255, 167/255
+                                    on_text: self.foreground_color = 196/255, 204/255, 217/255
+                                    size_hint: 1, None
+                                    height: '50dp'
+                                    color: 196/255, 204/255, 217/255
+                                    font_size: '20sp'
+                                    background_normal: ''
+                                    background_color: 90/255, 101/255, 108/255
+                                BoxLayout:
+                                    orientation: 'horizontal'
+                                    size_hint: 1, 0.5
+                                    id: board_colors
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                size_hint: 0.2, 1
+                                Button:
+                                    name: 'styles_next_b'
+                                    text: 'next'
+                                    color: 90/255, 101/255, 108/255
+                                    font_size: '20sp'
+                                    height: '50dp'
+                                    background_normal: ''
+                                    background_color: 164/255, 212/255, 255/255
+                                    on_release:
+                                        app.styles_screen_next('styles_screen')
+
+########################################################## the rest of the panels are gallery samples
+
+                TabbedPanelItem:
+                    text: 'default'
+                    background_down: '../assets/accent_styles_tab_down.png'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        Image:
+                            source: '../assets/accent_style_default.png'
+                            allow_stretch: True
+                            keep_ratio: False
+                TabbedPanelItem:
+                    text: 'S1'
+                    background_down: '../assets/accent_styles_tab_down.png'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        Image:
+                            source: '../assets/accent_style_s1.png'
+                            allow_stretch: True
+                            keep_ratio: False
+                TabbedPanelItem:
+                    text: 'S2'
+                    background_down: '../assets/accent_styles_tab_down.png'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        Image:
+                            source: '../assets/accent_style_s2.png'
+                            allow_stretch: True
+                            keep_ratio: False
+                TabbedPanelItem:
+                    text: 'S3'
+                    background_down: '../assets/accent_styles_tab_down.png'
+                    BoxLayout:
+                        orientation: 'vertical'
+                        Image:
+                            source: '../assets/accent_style_s3.png'
+                            allow_stretch: True
+                            keep_ratio: False
+
