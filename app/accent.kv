@@ -1,0 +1,111 @@
+
+# :kivy 2.0.0
+#:include accent_seasons.kv
+#:include accent_board.kv
+
+<AccentContent>:
+
+    ScreenManager:
+        id: screen_manager
+        canvas:
+            Color:
+                rgb: 222/255, 222/255, 222/255
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+##########################################################
+########################################################## home screen
+##########################################################
+
+        Screen:
+            name: 'home'
+            BoxLayout:
+                orientation: 'vertical'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        padding: [10, 0, 0, 25]
+                        GridLayout:
+                            cols: 2
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                spacing: '10dp'
+                                MDRoundFlatIconButton:
+                                    icon: 'format-size'
+                                    text: 'window size'
+                                    font_size: '14sp'
+                                    on_release:
+                                        ############## calls function for app window size dropdown options
+                                        app.window_size_settings(self)
+                                MDRoundFlatIconButton:
+                                    id: styles_drop_down
+                                    icon: 'shape-plus'
+                                    text: 'select style'
+                                    font_size: '14sp'
+                                    on_release:
+                                        ############## calls function for styles dropdown options
+                                        app.style_settings(self)
+                        MDRoundFlatIconButton:
+                            icon: 'copyright'
+                            ########################## calls function to get current year for Datanota copyright
+                            text: app.get_current_year('Datanota')
+                            font_size: '14sp'
+                            on_release:
+                                app.accent_window_ss('accent.png')
+                BoxLayout:
+                    orientation: 'vertical'
+                    canvas:
+                        Color:
+                            rgb: 212/255, 213/255, 212/255
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    GridLayout:
+                        cols: 2
+                        padding: '20dp'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Image:
+                                source: app.get_assets_path('accent_applogo.png')
+                                allow_stretch: True
+                        GridLayout:
+                            rows: 3
+                            spacing: '15dp'
+                            padding: [30, 300, 0, 100]
+                            MDFillRoundFlatIconButton:
+                                icon: 'palette'
+                                text: 'seasons '
+                                icon_color: 0, 0, 0
+                                text_color: 0, 0, 0
+                                font_size: '20sp'
+                                md_bg_color: 135/255, 255/255, 214/255
+                                size_hint_x: 0.7
+                                on_release:
+                                    app.populate_season_palette_tab()
+                            MDFillRoundFlatIconButton:
+                                icon: 'cube'
+                                text: 'custom   '
+                                icon_color: 0, 0, 0
+                                text_color: 0, 0, 0
+                                font_size: '20sp'
+                                md_bg_color: 129/255, 248/255, 255/255
+                                size_hint_x: 0.7
+                                on_release:
+                                    app.custom_board_settings()
+                            MDFillRoundFlatIconButton:
+                                icon: 'play-circle'
+                                text: 'demo      '
+                                icon_color: 0, 0, 0
+                                text_color: 0, 0, 0
+                                font_size: '20sp'
+                                md_bg_color: 255/255, 213/255, 165/255
+                                size_hint: 1, None
+                                on_release:
+                                    app.accent_demo()
+
+        AccentSeasons:
+        AccentBoard:

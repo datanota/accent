@@ -1,0 +1,143 @@
+
+
+# :kivy 2.0.0
+
+##########################################################
+########################################################## Accent Seasons Screen
+##########################################################
+
+<AccentSeasons>:
+    name: 'seasons_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        MDTopAppBar:
+            id: top_app_bar
+            md_bg_color: app.theme_cls.primary_dark
+            specific_text_color: app.theme_cls.primary_light
+            elevation: 1
+            left_action_items:
+                [["home", lambda x: app.callback_top_nav('home'), 'home']]
+            right_action_items:
+                [["copyright", lambda x: app.accent_window_ss('accent.png')]]
+        BoxLayout:
+            orientation: 'vertical'
+            TabbedPanel:
+                id: tab_panel
+                tab_width: (self.parent.width - 10) / 3
+                do_default_tab: False
+                tab_pos: 'bottom_mid'
+                background_image: ''
+                background_color: 212/255, 213/255, 212/255
+#################################################################### season tab
+                TabbedPanelItem:
+                    id: seasons_palette_tab
+                    text: 'seasons'
+                    background_down: ''
+                    color: 215 / 255, 163 / 255, 9 / 255
+                    on_release:
+                        app.populate_season_palette_tab()
+                    GridLayout:
+                        rows: 2
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint: 0.6, 0.2
+                            spacing: '5dp'
+                            padding: '10dp'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                id: selected_season_color_widget
+                            Button:
+                                text: 'generate colors'
+                                color: 90/255, 101/255, 108/255
+                                size_hint: 0.3, 1
+                                font_size: '20sp'
+                                background_normal: ''
+                                background_color: 164/255, 212/255, 255/255
+                                on_release:
+                                    app.generate_random_colors()
+                        StackLayout:
+                            id: season_palette
+#################################################################### random colors tab
+                TabbedPanelItem:
+                    id: random_tab
+                    text: 'random'
+                    background_down: ''
+                    color: 215 / 255, 163 / 255, 9 / 255
+                    StackLayout:
+                        id: random_colors
+#################################################################### settings tab
+                TabbedPanelItem:
+                    id: settings_tab
+                    text: 'settings'
+                    background_down: ''
+                    color: 215 / 255, 163 / 255, 9 / 255
+                    GridLayout:
+                        cols: 2
+                        BoxLayout:
+                            orientation: 'vertical'
+                            spacing: '5dp'
+                            padding: [10, 10, 0, 0]
+                            MDTextFieldRect:
+                                id: board_given_name
+                                multiline: False
+                                cursor_color: 196/255, 204/255, 217/255
+                                hint_text: 'board name (name your mood-board - default random)'
+                                hint_text_color: 149/255, 158/255, 167/255
+                                on_text: self.foreground_color = 196/255, 204/255, 217/255
+                                size_hint: 1, None
+                                height: '50dp'
+                                color: 196/255, 204/255, 217/255
+                                font_size: '20sp'
+                                background_normal: ''
+                                background_color: 90/255, 101/255, 108/255
+                            MDTextFieldRect:
+                                id: board_given_border_width
+                                multiline: False
+                                cursor_color: 196/255, 204/255, 217/255
+                                hint_text: 'border width (e.g 0, 10, 20)'
+                                hint_text_color: 149/255, 158/255, 167/255
+                                on_text: self.foreground_color = 196/255, 204/255, 217/255
+                                size_hint: 1, None
+                                height: '50dp'
+                                color: 196/255, 204/255, 217/255
+                                font_size: '20sp'
+                                background_normal: ''
+                                background_color: 90/255, 101/255, 108/255
+                            MDTextFieldRect:
+                                id: board_given_colors
+                                multiline: False
+                                cursor_color: 196/255, 204/255, 217/255
+                                hint_text: 'add colors in hex (separate by comma)'
+                                hint_text_color: 149/255, 158/255, 167/255
+                                on_text: self.foreground_color = 196/255, 204/255, 217/255
+                                size_hint: 1, None
+                                height: '50dp'
+                                color: 196/255, 204/255, 217/255
+                                font_size: '20sp'
+                                background_normal: ''
+                                background_color: 90/255, 101/255, 108/255
+                            BoxLayout:
+                                orientation: 'vertical'
+                                id: finalized_colors
+                                size_hint: 1, 0.5
+                                Button:
+                                    id: finalized_colors_season_color
+                                    text: 'season color'
+                                    color: 90/255, 101/255, 108/255
+                                    font_size: '15sp'
+                                    background_normal: ''
+                                    background_color: 1, 1, 1
+                                    on_release:
+                                        app.transition_to_seasons_tab()
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint: 0.3, 1
+                            padding: [10, 10, 10, 0]
+                            Button:
+                                text: 'create board'
+                                color: 90/255, 101/255, 108/255
+                                font_size: '20sp'
+                                background_normal: ''
+                                background_color: 164/255, 212/255, 255/255
+                                on_release:
+                                    app.create_mood_board()

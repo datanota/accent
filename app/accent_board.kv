@@ -1,0 +1,62 @@
+
+
+# :kivy 2.0.0
+
+##########################################################
+########################################################## Board Screen
+##########################################################
+
+<AccentBoard>:
+    name: 'board_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        MDTopAppBar:
+            md_bg_color: app.theme_cls.primary_dark
+            specific_text_color: app.theme_cls.primary_light
+            elevation: 1
+            BoxLayout:
+                orientation: 'horizontal'
+                padding: [10, 0, 0, 25]
+                GridLayout:
+                    cols: 5
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        spacing: '10dp'
+                        MDRoundFlatIconButton:
+                            icon: 'home'
+                            text: 'home'
+                            font_size: '14sp'
+                            on_release:
+                                app.callback_top_nav('home')
+                        MDRoundFlatIconButton:
+                            icon: 'format-size'
+                            text: 'window size'
+                            font_size: '14sp'
+                            on_release:
+                                ############## calls function for app window size dropdown options
+                                app.window_size_settings(self)
+                        MDRoundFlatIconButton:
+                            id: styles_drop_down
+                            icon: 'shape-plus'
+                            text: 'select style'
+                            font_size: '14sp'
+                            on_release:
+                                ############## calls function for styles dropdown options
+                                app.style_settings(self)
+                        MDRoundFlatIconButton:
+                            icon: ''
+                            ########################## calls function to get current year for Datanota copyright
+                            text: 're-run'
+                            font_size: '14sp'
+                            on_release:
+                                app.create_mood_board()
+                MDRoundFlatIconButton:
+                    icon: 'image'
+                    text: 'save Datanota Board'
+                    font_size: '14sp'
+                    on_release:
+                    ############## calls function for styles dropdown options
+                        app.save_created_board()
+        BoxLayout:
+            orientation: 'vertical'
+            id: board_layout
