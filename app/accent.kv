@@ -1,0 +1,249 @@
+
+# :kivy 2.0.0
+
+<AccentContent>:
+
+    ScreenManager:
+        id: screen_manager
+        canvas:
+            Color:
+                rgba: 222/255, 222/255, 222/255, 0
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+##########################################################
+########################################################## home screen
+##########################################################
+
+        Screen:
+            name: 'home'
+            BoxLayout:
+                orientation: 'vertical'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        padding: [10, 0, 0, 25]
+                        GridLayout:
+                            cols: 2
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                spacing: '10dp'
+                                MDRoundFlatIconButton:
+                                    icon: 'format-size'
+                                    text: 'window size'
+                                    font_size: '14sp'
+                                    on_release:
+                                        app.window_size_settings(self)
+                        MDRoundFlatIconButton:
+                            icon: 'copyright'
+                            text: app.get_current_year('Datanota')
+                            font_size: '14sp'
+                            on_release:
+                                app.accent_window_ss('accent.png')
+                BoxLayout:
+                    orientation: 'vertical'
+                    canvas:
+                        Color:
+                            rgb: 212/255, 213/255, 212/255
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                    GridLayout:
+                        cols: 2
+                        padding: '20dp'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Image:
+                                source: app.get_assets_path('accent_applogo.png')
+                                allow_stretch: True
+                        GridLayout:
+                            rows: 3
+                            spacing: '15dp'
+                            padding: [30, 300, 0, 100]
+                            MDFillRoundFlatIconButton:
+                                icon: 'palette'
+                                text: 'seasons '
+                                icon_color: 0, 0, 0
+                                text_color: 0, 0, 0
+                                font_size: '20sp'
+                                md_bg_color: 135/255, 255/255, 214/255
+                                size_hint_x: 0.7
+                                on_release:
+                                    app.populate_season_palette_tab()
+                            MDFillRoundFlatIconButton:
+                                icon: 'play-circle'
+                                text: 'demo      '
+                                icon_color: 0, 0, 0
+                                text_color: 0, 0, 0
+                                font_size: '20sp'
+                                md_bg_color: 255/255, 213/255, 165/255
+                                size_hint: 1, None
+                                on_release:
+                                    app.accent_demo()
+
+##########################################################
+########################################################## Seasons Screen
+##########################################################
+        Screen:
+            name: 'seasons_screen'
+            BoxLayout:
+                orientation: 'vertical'
+                MDTopAppBar:
+                    id: top_app_bar
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    left_action_items:
+                        [["home", lambda x: app.callback_top_nav('home'), 'home']]
+                    right_action_items:
+                        [["copyright", lambda x: app.accent_window_ss('accent.png')]]
+                BoxLayout:
+                    orientation: 'vertical'
+                    GridLayout:
+                        rows: 2
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            size_hint: 0.6, 0.2
+                            spacing: '5dp'
+                            padding: '5dp'
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                id: selected_season_color_widget
+                            Button:
+                                text: 'generate colors'
+                                color: 90/255, 101/255, 108/255
+                                size_hint: 0.3, 1
+                                font_size: '20sp'
+                                background_normal: ''
+                                background_color: 164/255, 212/255, 255/255
+                                on_release:
+                                    app.generate_random_colors()
+                        StackLayout:
+                            id: season_palette
+
+##########################################################
+########################################################## Settings Screen
+##########################################################
+        Screen:
+            name: 'settings_screen'
+            BoxLayout:
+                orientation: 'vertical'
+                MDTopAppBar:
+                    id: top_app_bar
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        spacing: '10dp'
+                        padding: 0, 0, 0, 25
+                        MDRoundFlatIconButton:
+                            icon: 'home'
+                            text: 'home'
+                            on_release:
+                                app.callback_top_nav('home')
+                        MDRoundFlatIconButton:
+                            icon: 'image'
+                            text: 'Create Board'
+                            on_release:
+                                app.create_mood_board()
+                        StackLayout:
+                            id: selected_board_colors
+                            size_hint_y: None
+                            pos_hint: {"center_y": 0.5}
+                GridLayout:
+                    rows: 2
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        size_hint: 1, 0.15
+                        spacing: '5dp'
+                        padding: '5dp'
+                        MDTextFieldRect:
+                            id: board_given_colors
+                            multiline: False
+                            cursor_color: 196/255, 204/255, 217/255
+                            hint_text: 'add colors in hex, separated by comma (e.g ffffff, 000000)'
+                            hint_text_color: 149/255, 158/255, 167/255
+                            on_text: self.foreground_color = 196/255, 204/255, 217/255
+                            height: '50dp'
+                            color: 196/255, 204/255, 217/255
+                            font_size: '20sp'
+                            background_normal: ''
+                            background_color: 90/255, 101/255, 108/255
+                        Button:
+                            text: 'add colors'
+                            size_hint: 0.2, 1
+                            color: 90/255, 101/255, 108/255
+                            font_size: '20sp'
+                            background_normal: ''
+                            background_color: 164/255, 212/255, 255/255
+                            on_release:
+                                app.add_custom_colors()
+                    BoxLayout:
+                        orientation: 'vertical'
+                        Button:
+                            size_hint: 1, 0.2
+                            id: settings_season_color
+                            text: 'press to generate more colors'
+                            color: 'BD9D74'
+                            # color: 90/255, 101/255, 108/255
+                            font_size: '20sp'
+                            background_normal: ''
+                            background_color: 1, 1, 1
+                            on_release:
+                                app.generate_random_colors()
+                        BoxLayout:
+                            orientation: 'horizontal'
+                            id: generated_colors
+
+##########################################################
+########################################################## Board Screen
+##########################################################
+
+        Screen:
+            name: 'board_screen'
+            BoxLayout:
+                orientation: 'vertical'
+                MDTopAppBar:
+                    md_bg_color: app.theme_cls.primary_dark
+                    specific_text_color: app.theme_cls.primary_light
+                    elevation: 1
+                    BoxLayout:
+                        orientation: 'horizontal'
+                        padding: [10, 0, 0, 25]
+                        GridLayout:
+                            cols: 5
+                            BoxLayout:
+                                orientation: 'horizontal'
+                                spacing: '10dp'
+                                MDRoundFlatIconButton:
+                                    icon: 'home'
+                                    text: 'home'
+                                    font_size: '14sp'
+                                    on_release:
+                                        app.callback_top_nav('home')
+                                MDRoundFlatIconButton:
+                                    icon: 'format-size'
+                                    text: 'window size'
+                                    font_size: '14sp'
+                                    on_release:
+                                        app.window_size_settings(self)
+                                MDRoundFlatIconButton:
+                                    icon: ''
+                                    text: 're-run'
+                                    font_size: '14sp'
+                                    on_release:
+                                        app.create_mood_board()
+                        MDRoundFlatIconButton:
+                            icon: 'image'
+                            text: 'save Datanota Board'
+                            font_size: '14sp'
+                            on_release:
+                                app.save_created_board()
+                BoxLayout:
+                    orientation: 'vertical'
+                    id: board_layout
