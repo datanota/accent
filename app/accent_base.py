@@ -3,7 +3,7 @@ from kivy.core.window import Window
 from kivy.uix.dropdown import DropDown
 from kivy.uix.button import Button
 from kivy.uix.widget import Widget
-from kivy.graphics import Color, Rectangle, Ellipse, Triangle, Line
+from kivy.graphics import Color, Rectangle, Ellipse, Triangle, Line, Point
 import webbrowser
 import datetime
 import random
@@ -112,7 +112,7 @@ class AccentBase:
     def add_shapes(self, top_layer, n, x_lim, y_lim, size_x_lim, size_y_lim):
         for i in range(n):
             shape_container = Widget()
-            shape = random.choice(['rectangle', 'ellipse', 'triangle', 'line'])
+            shape = random.choice(['rectangle', 'ellipse', 'triangle', 'line', 'point'])
             with shape_container.canvas:
                 color_rgb = random.choice(self.on_board_colors)
                 color_rgb[-1] = round(random.uniform(0, 1), 2)
@@ -122,9 +122,9 @@ class AccentBase:
                 size_y = random.randint(size_y_lim, 1000 - y)
                 if shape == 'rectangle':
                     Rectangle(pos=(x, y), size=(size_x, size_y))
-                if shape == 'ellipse':
+                if (shape == 'ellipse') and (i in [10, 20]):
                     Ellipse(pos=(x, y), size=(size_x, size_y), angle_start=0, angle_end=360)
-                if shape == 'triangle':
+                if (shape == 'triangle') and (i in [12, 13, 14]):
                     t1_x, t1_y = x, y
                     t2_x, t2_y = random.randint(0, x_lim[0]), random.randint(y_lim[1], 1000)
                     t3_x, t3_y = random.randint(x_lim[1], 1500), random.randint(y_lim[0], 1000)
@@ -141,4 +141,6 @@ class AccentBase:
                         random.choice([x1, x2, x3]), random.choice([y1, y2, y3]),
                     ]
                     Line(points=points, width=line_width)
+                else:
+                    Point(points=[x, y], pointsize=random.choice(range(100)))
             top_layer.add_widget(shape_container)

@@ -3,7 +3,6 @@ from app.accent_base import AccentBase
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 from functools import partial
-from kivy.core.window import Window
 from kivymd.uix.button import MDFillRoundFlatButton
 from kivymd.app import MDApp
 import datetime
@@ -108,7 +107,7 @@ class AccentApp(MDApp, AccentBase):
         self.root.ids.board_layout.clear_widgets()
         top_layer = BoxLayout(orientation='horizontal')
         self.add_shapes(
-            top_layer=top_layer, n=8, x_lim=[300, 500], y_lim=[10, 200], size_x_lim=100, size_y_lim=40
+            top_layer=top_layer, n=20, x_lim=[300, 500], y_lim=[10, 200], size_x_lim=100, size_y_lim=40
         )
         self.root.ids.board_layout.add_widget(top_layer)
 
@@ -137,7 +136,7 @@ class AccentApp(MDApp, AccentBase):
 
     def build(self):
         self.theme_cls.primary_palette = "Gray"
-        self.title = 'Datanota - ACCENT - V2.1'
+        self.title = 'Datanota - ACCENT - develop'
         return AccentContent()
 
 
